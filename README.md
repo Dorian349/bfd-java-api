@@ -22,7 +22,7 @@ Using Maven:
     <dependency>
         <groupId>com.github.Dorian349</groupId>
         <artifactId>bfd-java-api</artifactId>
-        <version>VERSION</version>
+        <version>1.0.0</version>
     </dependency>
 </dependencies>
 ```
@@ -34,13 +34,15 @@ repositories {
 ```
 ```groovy
 dependencies {
-    implementation 'com.github.Dorian349:bfd-java-api:VERSION'
+    implementation 'com.github.Dorian349:bfd-java-api:1.0.0'
 }
 ```
 
 ## Features
 • Collect information about a user from discords.com
+
 • Collect information about a bot from discords.com such as votes / widget
+
 • Post the bot server count on discords.com
 
 ## Simplest Usage
