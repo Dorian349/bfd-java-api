@@ -22,7 +22,7 @@ Using Maven:
     <dependency>
         <groupId>com.github.Dorian349</groupId>
         <artifactId>bfd-java-api</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
     </dependency>
 </dependencies>
 ```
@@ -34,7 +34,7 @@ repositories {
 ```
 ```groovy
 dependencies {
-    implementation 'com.github.Dorian349:bfd-java-api:1.0.0'
+    implementation 'com.github.Dorian349:bfd-java-api:1.1.0'
 }
 ```
 
