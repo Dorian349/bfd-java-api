@@ -6,6 +6,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import me.dorian349.bfdapi.entities.bot.Bot;
+import me.dorian349.bfdapi.entities.bot.BotLastVotes;
 import me.dorian349.bfdapi.entities.bot.BotVotes;
 import me.dorian349.bfdapi.entities.user.User;
 import me.dorian349.bfdapi.entities.user.UserBots;
@@ -130,6 +131,36 @@ public class BotsForDiscordAPI {
             response = Unirest.get("https://discords.com/bots/api/bot/" + this.botId + "/votes").header("Authorization", this.bfdToken).header("Content-Type", "application/json").asString();
             if(response.getStatus() == 200){
                 return gson.fromJson(response.getBody(), BotVotes.class);
+            }
+            else {
+                throw new IllegalArgumentException(new JSONObject(response.getBody()).getString("message"));
+            }
+        } catch (UnirestException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    /**
+     * Returns the {@link BotLastVotes} instance of this bot
+     *
+     * @throws java.lang.IllegalArgumentException
+     *         If the provided bot id cannot be found or no user
+     *         has voted in the last 12 hours.
+     *
+     * @return the corresponding BotLastVotes instance.
+     */
+    public BotLastVotes getLast12HVotes(){
+        HttpResponse<String> response;
+
+        if(this.botId == null) throw new IllegalArgumentException("The bot id cannot be null.");
+
+        try {
+            response = Unirest.get("https://discords.com/bots/api/bot/" + this.botId + "/votes12h").header("Authorization", this.bfdToken).header("Content-Type", "application/json").asString();
+            if(response.getStatus() == 200){
+                if(new JSONObject(response.getBody()).get("entries") instanceof String){
+                    throw new IllegalArgumentException(new JSONObject(response.getBody()).getString("entries"));
+                }
+                return gson.fromJson(response.getBody(), BotLastVotes.class);
             }
             else {
                 throw new IllegalArgumentException(new JSONObject(response.getBody()).getString("message"));
